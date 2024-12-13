@@ -1,4 +1,4 @@
-﻿using Evently.Modules.Events.Application.Events;
+﻿using Evently.Modules.Events.Application.Events.CreateEvent;
 using MediatR;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
