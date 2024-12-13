@@ -2,14 +2,7 @@
 using Evently.Modules.Events.Domain.Events;
 using MediatR;
 
-namespace Evently.Modules.Events.Application.Events;
-
-public sealed record CreateEventCommand(
-    string Title,
-    string Description,
-    string Location,
-    DateTime StartsAtUtc,
-    DateTime? EndsAtUtc) : IRequest<Guid>;
+namespace Evently.Modules.Events.Application.Events.CreateEvent;
 
 internal sealed class CreateEventCommandHandler(
     IEventRepository eventRepository,
@@ -35,3 +28,4 @@ internal sealed class CreateEventCommandHandler(
         return @event.Id;
     }
 }
+    
