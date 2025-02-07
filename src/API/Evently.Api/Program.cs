@@ -23,6 +23,10 @@ app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
     options.WithTitle("Evently");
+    options.AddServer(new ScalarServer("https://localhost:5001"));
+    options.AddServer(new ScalarServer("http://localhost:5000"));
+    options.AddServer(new ScalarServer("http://localhost:8080"));
+    options.AddServer(new ScalarServer("https://localhost:8081"));
 }); // scalar/v1
 
 if (app.Environment.IsDevelopment())
