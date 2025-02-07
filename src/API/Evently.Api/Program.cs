@@ -3,9 +3,11 @@ using Evently.Common.Application;
 using Evently.Common.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
 using Scalar.AspNetCore;
+using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
@@ -35,6 +37,9 @@ if (app.Environment.IsDevelopment())
 }
 
 EventsModule.MapEndpoints(app);
+
+// logging middleware
+app.UseSerilogRequestLogging();
 
 #pragma warning disable S6966
 app.Run();
