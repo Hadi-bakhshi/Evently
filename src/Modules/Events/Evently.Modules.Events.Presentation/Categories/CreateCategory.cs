@@ -1,7 +1,8 @@
 ﻿using Evently.Common.Application.Caching;
 using Evently.Common.Domain;
+using Evently.Common.Presentation.ApiResults;
+using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Events.Application.Categories.CreateCategory;
-using Evently.Modules.Events.Presentation.ApiResults;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -9,9 +10,9 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Evently.Modules.Events.Presentation.Categories;
 
-internal static class CreateCategory
+internal sealed class CreateCategory : IEndpoint
 {
-    public static void MapEndpoint(IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("categories", async (Request request, ISender sender, ICacheService cacheService) =>
         {
@@ -20,7 +21,7 @@ internal static class CreateCategory
 
             Result<Guid> result = await sender.Send(new CreateCategoryCommand(request.Name));
 
-            return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
+            return result.Match(Results.Ok, ApiResults.Problem);
         })
         .WithTags(Tags.Categories);
     }
