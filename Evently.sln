@@ -49,6 +49,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Users.Infra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Users.Presentation", "src\Modules\Users\Evently.Modules.Users.Presentation\Evently.Modules.Users.Presentation.csproj", "{7A67C86C-9DCB-4CA2-ACEF-D51DDCC52EED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ticketing", "Ticketing", "{A3781AF6-A663-4000-8432-51B5AC5E755B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Ticketing.Application", "src\Modules\Ticketing\Evently.Modules.Ticketing.Application\Evently.Modules.Ticketing.Application.csproj", "{9489A8E2-A330-4C64-BEDF-0381B5400CE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Ticketing.Domain", "src\Modules\Ticketing\Evently.Modules.Ticketing.Domain\Evently.Modules.Ticketing.Domain.csproj", "{65B09418-40DF-4117-99E7-88656E83344B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Ticketing.Infrastructure", "src\Modules\Ticketing\Evently.Modules.Ticketing.Infrastructure\Evently.Modules.Ticketing.Infrastructure.csproj", "{D11F3008-C90D-4990-A0FB-5459B0F33CFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Modules.Ticketing.Presentation", "src\Modules\Ticketing\Evently.Modules.Ticketing.Presentation\Evently.Modules.Ticketing.Presentation.csproj", "{068F1ACF-F73F-4914-ABD3-D3D130C64AC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +121,22 @@ Global
 		{7A67C86C-9DCB-4CA2-ACEF-D51DDCC52EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A67C86C-9DCB-4CA2-ACEF-D51DDCC52EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A67C86C-9DCB-4CA2-ACEF-D51DDCC52EED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9489A8E2-A330-4C64-BEDF-0381B5400CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9489A8E2-A330-4C64-BEDF-0381B5400CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9489A8E2-A330-4C64-BEDF-0381B5400CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9489A8E2-A330-4C64-BEDF-0381B5400CE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B09418-40DF-4117-99E7-88656E83344B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B09418-40DF-4117-99E7-88656E83344B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B09418-40DF-4117-99E7-88656E83344B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B09418-40DF-4117-99E7-88656E83344B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11F3008-C90D-4990-A0FB-5459B0F33CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11F3008-C90D-4990-A0FB-5459B0F33CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11F3008-C90D-4990-A0FB-5459B0F33CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11F3008-C90D-4990-A0FB-5459B0F33CFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{068F1ACF-F73F-4914-ABD3-D3D130C64AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068F1ACF-F73F-4914-ABD3-D3D130C64AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068F1ACF-F73F-4914-ABD3-D3D130C64AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068F1ACF-F73F-4914-ABD3-D3D130C64AC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +160,11 @@ Global
 		{DD335E63-6452-4879-90F7-E61F296A9FE7} = {9AF5D98C-BBD8-40D9-BEE8-37EC9DAB49B9}
 		{34B0F5F8-D04E-499C-85C9-5CC274055EDF} = {9AF5D98C-BBD8-40D9-BEE8-37EC9DAB49B9}
 		{7A67C86C-9DCB-4CA2-ACEF-D51DDCC52EED} = {9AF5D98C-BBD8-40D9-BEE8-37EC9DAB49B9}
+		{A3781AF6-A663-4000-8432-51B5AC5E755B} = {29C8CD28-F58F-42E5-B8F7-53C1349EFF80}
+		{9489A8E2-A330-4C64-BEDF-0381B5400CE8} = {A3781AF6-A663-4000-8432-51B5AC5E755B}
+		{65B09418-40DF-4117-99E7-88656E83344B} = {A3781AF6-A663-4000-8432-51B5AC5E755B}
+		{D11F3008-C90D-4990-A0FB-5459B0F33CFE} = {A3781AF6-A663-4000-8432-51B5AC5E755B}
+		{068F1ACF-F73F-4914-ABD3-D3D130C64AC7} = {A3781AF6-A663-4000-8432-51B5AC5E755B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E42AE86-7F3C-45F4-A386-AB71CC4446CB}
