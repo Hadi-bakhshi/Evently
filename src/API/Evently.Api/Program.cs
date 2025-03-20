@@ -13,7 +13,8 @@ using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
+builder.Host.UseSerilog((context, loggerConfiguration) =>
+    loggerConfiguration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
@@ -25,11 +26,14 @@ builder.Services.AddApplication([
     Evently.Modules.Events.Application.AssemblyReference.Assembly,
     Evently.Modules.Users.Application.AssemblyReference.Assembly,
     Evently.Modules.Ticketing.Application.AssemblyReference.Assembly,
-    ]);
+]);
 
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
 string redisConnectionString = builder.Configuration.GetConnectionString("Cache")!;
-builder.Services.AddInfrastructure(databaseConnectionString, redisConnectionString);
+builder.Services.AddInfrastructure(
+    [TicketingModule.ConfigureConsumers],
+    databaseConnectionString,
+    redisConnectionString);
 
 builder.Configuration.AddModuleConfiguration(["events", "users", "ticketing"]);
 
@@ -70,4 +74,3 @@ app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 #pragma warning disable S6966
 app.Run();
-

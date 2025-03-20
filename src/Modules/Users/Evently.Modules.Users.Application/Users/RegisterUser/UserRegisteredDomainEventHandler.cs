@@ -1,18 +1,19 @@
-﻿using Evently.Common.Application.Exceptions;
+﻿using Evently.Common.Application.EventBus;
+using Evently.Common.Application.Exceptions;
 using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
-using Evently.Modules.Ticketing.PublicApi;
 using Evently.Modules.Users.Application.Users.GetUser;
 using Evently.Modules.Users.Domain.Users;
+using Evently.Modules.Users.IntegrationEvents;
 using MediatR;
 
 namespace Evently.Modules.Users.Application.Users.RegisterUser;
-internal sealed class UserRegisteredDomainEventHandler(ISender sender, ITicketingApi ticketingApi)
+
+internal sealed class UserRegisteredDomainEventHandler(ISender sender, IEventBus eventBus)
     : IDomainEventHandler<UserRegisteredDomainEvent>
 {
     public async Task Handle(UserRegisteredDomainEvent notification, CancellationToken cancellationToken)
     {
-
         Result<UserResponse> userResult = await sender.Send(new GetUserQuery(notification.UserId), cancellationToken);
 
         if (userResult.IsFailure)
@@ -21,12 +22,15 @@ internal sealed class UserRegisteredDomainEventHandler(ISender sender, ITicketin
         }
 
 
-        await ticketingApi.CreateCustomerAsync(
-            userResult.Value.Id,
-            userResult.Value.Email,
-            userResult.Value.FirstName,
-            userResult.Value.LastName,
+        await eventBus.PublishAsync(
+            new UserRegisteredIntegrationEvent(
+                notification.Id,
+                notification.OccurredOnUtc,
+                userResult.Value.Id,
+                userResult.Value.Email,
+                userResult.Value.FirstName,
+                userResult.Value.LastName
+            ),
             cancellationToken);
-
     }
 }
