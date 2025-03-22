@@ -9,7 +9,9 @@ public sealed class Category : Entity
     }
 
     public Guid Id { get; private set; }
+
     public string Name { get; private set; }
+
     public bool IsArchived { get; private set; }
 
     public static Category Create(string name)
@@ -20,15 +22,16 @@ public sealed class Category : Entity
             Name = name,
             IsArchived = false
         };
-        
+
         category.Raise(new CategoryCreatedDomainEvent(category.Id));
-        
+
         return category;
     }
 
     public void Archive()
     {
         IsArchived = true;
+
         Raise(new CategoryArchivedDomainEvent(Id));
     }
 
@@ -38,7 +41,9 @@ public sealed class Category : Entity
         {
             return;
         }
+
         Name = name;
-        Raise(new CategoryNameChangedDomainEvent(Id, name));
+
+        Raise(new CategoryNameChangedDomainEvent(Id, Name));
     }
 }

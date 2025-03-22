@@ -14,11 +14,11 @@ internal sealed class GetCategory : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("categories/{id}", async (Guid id, ISender sender) =>
-            {
-                Result<CategoryResponse> result = await sender.Send(new GetCategoryQuery(id));
+        {
+            Result<CategoryResponse> result = await sender.Send(new GetCategoryQuery(id));
 
-                return result.Match(Results.Ok, ApiResults.Problem);
-            })
-            .WithTags(Tags.Categories);
+            return result.Match(Results.Ok, ApiResults.Problem);
+        })
+        .WithTags(Tags.Categories);
     }
 }

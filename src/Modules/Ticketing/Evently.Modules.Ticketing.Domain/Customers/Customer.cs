@@ -4,7 +4,9 @@ namespace Evently.Modules.Ticketing.Domain.Customers;
 
 public sealed class Customer : Entity
 {
-    private Customer() { }
+    private Customer()
+    {
+    }
 
     public Guid Id { get; private set; }
 

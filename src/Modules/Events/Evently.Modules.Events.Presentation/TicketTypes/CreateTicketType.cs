@@ -14,17 +14,17 @@ internal sealed class CreateTicketType : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("ticket-types", async (Request request, ISender sender) =>
-            {
-                Result<Guid> result = await sender.Send(new CreateTicketTypeCommand(
-                    request.EventId,
-                    request.Name,
-                    request.Price,
-                    request.Currency,
-                    request.Quantity));
+        {
+            Result<Guid> result = await sender.Send(new CreateTicketTypeCommand(
+                request.EventId,
+                request.Name,
+                request.Price,
+                request.Currency,
+                request.Quantity));
 
-                return result.Match(Results.Ok, ApiResults.Problem);
-            })
-            .WithTags(Tags.TicketTypes);
+            return result.Match(Results.Ok, ApiResults.Problem);
+        })
+        .WithTags(Tags.TicketTypes);
     }
 
     internal sealed class Request

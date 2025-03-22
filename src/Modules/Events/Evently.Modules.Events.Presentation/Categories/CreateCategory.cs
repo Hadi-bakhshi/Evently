@@ -1,5 +1,4 @@
-﻿using Evently.Common.Application.Caching;
-using Evently.Common.Domain;
+﻿using Evently.Common.Domain;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Common.Presentation.Results;
 using Evently.Modules.Events.Application.Categories.CreateCategory;
@@ -14,11 +13,8 @@ internal sealed class CreateCategory : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("categories", async (Request request, ISender sender, ICacheService cacheService) =>
+        app.MapPost("categories", async (Request request, ISender sender) =>
         {
-
-            await cacheService.RemoveAsync("categories");
-
             Result<Guid> result = await sender.Send(new CreateCategoryCommand(request.Name));
 
             return result.Match(Results.Ok, ApiResults.Problem);

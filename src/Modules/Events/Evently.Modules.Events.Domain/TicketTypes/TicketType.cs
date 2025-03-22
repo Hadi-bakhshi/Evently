@@ -10,10 +10,15 @@ public sealed class TicketType : Entity
     }
 
     public Guid Id { get; private set; }
+
     public Guid EventId { get; private set; }
+
     public string Name { get; private set; }
+
     public decimal Price { get; private set; }
+
     public string Currency { get; private set; }
+
     public decimal Quantity { get; private set; }
 
     public static TicketType Create(
@@ -32,7 +37,7 @@ public sealed class TicketType : Entity
             Currency = currency,
             Quantity = quantity
         };
-        ticketType.Raise(new TicketTypeCreatedDomainEvent(ticketType.Id));
+
         return ticketType;
     }
 

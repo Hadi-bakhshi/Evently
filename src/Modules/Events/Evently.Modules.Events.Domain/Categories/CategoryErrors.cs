@@ -11,4 +11,3 @@ public static class CategoryErrors
         "Categories.AlreadyArchived",
         "The category was already archived");
 }
-

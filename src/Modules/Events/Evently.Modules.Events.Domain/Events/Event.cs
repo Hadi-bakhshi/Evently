@@ -1,5 +1,4 @@
-﻿
-using Evently.Common.Domain;
+﻿using Evently.Common.Domain;
 using Evently.Modules.Events.Domain.Categories;
 
 namespace Evently.Modules.Events.Domain.Events;
@@ -8,15 +7,22 @@ public sealed class Event : Entity
 {
     private Event()
     {
-
     }
+
     public Guid Id { get; private set; }
+
     public Guid CategoryId { get; private set; }
+
     public string Title { get; private set; }
+
     public string Description { get; private set; }
+
     public string Location { get; private set; }
+
     public DateTime StartsAtUtc { get; private set; }
+
     public DateTime? EndsAtUtc { get; private set; }
+
     public EventStatus Status { get; private set; }
 
     public static Result<Event> Create(
@@ -31,7 +37,7 @@ public sealed class Event : Entity
         {
             return Result.Failure<Event>(EventErrors.EndDatePrecedesStartDate);
         }
-        
+
         var @event = new Event
         {
             Id = Guid.NewGuid(),
@@ -47,7 +53,6 @@ public sealed class Event : Entity
         @event.Raise(new EventCreatedDomainEvent(@event.Id));
 
         return @event;
-
     }
 
     public Result Publish()
@@ -56,8 +61,11 @@ public sealed class Event : Entity
         {
             return Result.Failure(EventErrors.NotDraft);
         }
+
         Status = EventStatus.Published;
+
         Raise(new EventPublishedDomainEvent(Id));
+
         return Result.Success();
     }
 
@@ -67,10 +75,13 @@ public sealed class Event : Entity
         {
             return;
         }
+
         StartsAtUtc = startsAtUtc;
         EndsAtUtc = endsAtUtc;
-        Raise(new EventRescheduledDomainEvent(Id, startsAtUtc, endsAtUtc));
+
+        Raise(new EventRescheduledDomainEvent(Id, StartsAtUtc, EndsAtUtc));
     }
+
     public Result Cancel(DateTime utcNow)
     {
         if (Status == EventStatus.Canceled)
@@ -82,9 +93,11 @@ public sealed class Event : Entity
         {
             return Result.Failure(EventErrors.AlreadyStarted);
         }
+
         Status = EventStatus.Canceled;
-        
+
         Raise(new EventCanceledDomainEvent(Id));
+
         return Result.Success();
     }
 }
