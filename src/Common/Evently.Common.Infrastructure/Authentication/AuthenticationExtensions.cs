@@ -9,11 +9,11 @@ internal static class AuthenticationExtensions
         services.AddAuthorization();
 
         services.AddAuthentication().AddJwtBearer();
-        
+
         services.AddHttpContextAccessor();
-        
+
         services.ConfigureOptions<JwtBearerConfigureOptions>();
-        
+
         return services;
     }
 }

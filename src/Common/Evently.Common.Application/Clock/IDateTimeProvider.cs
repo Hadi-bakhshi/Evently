@@ -2,5 +2,7 @@
 
 public interface IDateTimeProvider
 {
-     DateTime UtcNow { get; }
+#pragma warning disable IDE0040 // Add accessibility modifiers
+    public DateTime UtcNow { get; }
+#pragma warning restore IDE0040 // Add accessibility modifiers
 }

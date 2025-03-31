@@ -1,5 +1,5 @@
 ﻿using Evently.Common.Application.Authorization;
-using Evently.Common.Infrastructure.Interceptors;
+using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Users.Application.Abstractions.Data;
 using Evently.Modules.Users.Application.Abstractions.Identity;

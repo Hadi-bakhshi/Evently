@@ -32,12 +32,16 @@ builder.Services.AddApplication([
 
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
 string redisConnectionString = builder.Configuration.GetConnectionString("Cache")!;
+
 builder.Services.AddInfrastructure(
-    [TicketingModule.ConfigureConsumers],
+    [
+        TicketingModule.ConfigureConsumers,
+        AttendanceModule.ConfigureConsumers
+    ],
     databaseConnectionString,
     redisConnectionString);
 
-builder.Configuration.AddModuleConfiguration(["events", "users", "ticketing","attendance"]);
+
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
@@ -47,9 +51,14 @@ builder.Services.AddHealthChecks()
         HttpMethod.Get,
         "keycloak");
 
+builder.Configuration.AddModuleConfiguration(["events", "users", "ticketing","attendance"]);
+
 builder.Services.AddEventsModule(builder.Configuration);
+
 builder.Services.AddUsersModule(builder.Configuration);
+
 builder.Services.AddTicketingModule(builder.Configuration);
+
 builder.Services.AddAttendanceModule(builder.Configuration);
 
 WebApplication app = builder.Build();
@@ -69,8 +78,6 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
 }
 
-app.MapEndpoints();
-
 app.MapHealthChecks("health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
@@ -85,6 +92,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+app.MapEndpoints();
 
 #pragma warning disable S6966
 app.Run();

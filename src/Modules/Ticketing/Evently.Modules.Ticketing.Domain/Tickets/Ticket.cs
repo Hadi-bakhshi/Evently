@@ -35,7 +35,7 @@ public sealed class Ticket : Entity
             OrderId = order.Id,
             EventId = ticketType.EventId,
             TicketTypeId = ticketType.Id,
-            Code = $"tc_{Guid.NewGuid()}",
+            Code = $"tc_{Ulid.NewUlid()}",
             CreatedAtUtc = DateTime.UtcNow
         };
 

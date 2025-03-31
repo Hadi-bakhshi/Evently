@@ -6,5 +6,5 @@ public static class IdentityProviderErrors
 {
     public static readonly Error EmailIsNotUnique = Error.Conflict(
         "Identity.EmailIsNotUnique",
-        "The specified email address is already in use.");
+        "The specified email is not unique.");
 }
