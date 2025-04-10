@@ -179,6 +179,8 @@ public class ApplicationTests : BaseTest
         Types.InAssembly(ApplicationAssembly)
             .That()
             .ImplementInterface(typeof(IDomainEventHandler<>))
+            .Or()
+            .Inherit(typeof(DomainEventHandler<>))
             .Should()
             .NotBePublic()
             .GetResult()
