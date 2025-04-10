@@ -3,6 +3,7 @@ using System;
 using Evently.Modules.Ticketing.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Evently.Modules.Ticketing.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(TicketingDbContext))]
-    partial class TicketingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250410112947_Outbox_Messsaging")]
+    partial class Outbox_Messsaging
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,23 +60,6 @@ namespace Evently.Modules.Ticketing.Infrastructure.Database.Migrations
                         .HasName("pk_outbox_messages");
 
                     b.ToTable("outbox_messages", "ticketing");
-                });
-
-            modelBuilder.Entity("Evently.Common.Infrastructure.Outbox.OutboxMessageConsumer", b =>
-                {
-                    b.Property<Guid>("OutboxMessageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("outbox_message_id");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("name");
-
-                    b.HasKey("OutboxMessageId", "Name")
-                        .HasName("pk_outbox_message_consumers");
-
-                    b.ToTable("outbox_message_consumers", "ticketing");
                 });
 
             modelBuilder.Entity("Evently.Modules.Ticketing.Domain.Customers.Customer", b =>
