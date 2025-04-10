@@ -4,9 +4,9 @@ using FluentValidation;
 using NetArchTest.Rules;
 
 namespace Evently.Modules.Attendance.ArchitectureTests.Applications;
+
 public class ApplicationTests : BaseTest
 {
-
     [Fact]
     public void Command_Should_BeSealed()
     {
@@ -67,14 +67,14 @@ public class ApplicationTests : BaseTest
     public void CommandHandler_ShouldHave_NameEndingWith_CommandHandler()
     {
         Types.InAssembly(ApplicationAssembly)
-           .That()
-           .ImplementInterface(typeof(ICommandHandler<>))
-           .Or()
-           .ImplementInterface(typeof(ICommandHandler<,>))
-           .Should()
-           .HaveNameEndingWith("CommandHandler")
-           .GetResult()
-           .ShouldBeSuccessful();
+            .That()
+            .ImplementInterface(typeof(ICommandHandler<>))
+            .Or()
+            .ImplementInterface(typeof(ICommandHandler<,>))
+            .Should()
+            .HaveNameEndingWith("CommandHandler")
+            .GetResult()
+            .ShouldBeSuccessful();
     }
 
     [Fact]
@@ -179,6 +179,8 @@ public class ApplicationTests : BaseTest
         Types.InAssembly(ApplicationAssembly)
             .That()
             .ImplementInterface(typeof(IDomainEventHandler<>))
+            .Or()
+            .Inherit(typeof(DomainEventHandler<>))
             .Should()
             .NotBePublic()
             .GetResult()
@@ -191,6 +193,8 @@ public class ApplicationTests : BaseTest
         Types.InAssembly(ApplicationAssembly)
             .That()
             .ImplementInterface(typeof(IDomainEventHandler<>))
+            .Or()
+            .Inherit(typeof(DomainEventHandler<>))
             .Should()
             .BeSealed()
             .GetResult()
@@ -203,6 +207,8 @@ public class ApplicationTests : BaseTest
         Types.InAssembly(ApplicationAssembly)
             .That()
             .ImplementInterface(typeof(IDomainEventHandler<>))
+            .Or()
+            .Inherit(typeof(DomainEventHandler<>))
             .Should()
             .HaveNameEndingWith("DomainEventHandler")
             .GetResult()
