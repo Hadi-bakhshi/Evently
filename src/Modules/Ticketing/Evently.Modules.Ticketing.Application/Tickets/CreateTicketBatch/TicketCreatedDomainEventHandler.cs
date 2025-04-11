@@ -14,7 +14,7 @@ internal sealed class TicketCreatedDomainEventHandler(ISender sender, IEventBus 
 {
     public override async Task Handle(
         TicketCreatedDomainEvent domainEvent,
-        CancellationToken cancellationToken = default) 
+        CancellationToken cancellationToken = default)
     {
         Result<TicketResponse> result = await sender.Send(
             new GetTicketQuery(domainEvent.TicketId),

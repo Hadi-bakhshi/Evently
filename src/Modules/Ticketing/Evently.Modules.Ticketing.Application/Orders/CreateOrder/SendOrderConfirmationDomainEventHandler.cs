@@ -12,10 +12,9 @@ internal sealed class SendOrderConfirmationDomainEventHandler(ISender sender)
 {
     public override async Task Handle(
         OrderCreatedDomainEvent notification,
-        CancellationToken cancellationToken = default) 
+        CancellationToken cancellationToken = default)
     {
-        Result<OrderResponse> result = await sender
-            .Send(new GetOrderQuery(notification.OrderId), cancellationToken);
+        Result<OrderResponse> result = await sender.Send(new GetOrderQuery(notification.OrderId), cancellationToken);
 
         if (result.IsFailure)
         {

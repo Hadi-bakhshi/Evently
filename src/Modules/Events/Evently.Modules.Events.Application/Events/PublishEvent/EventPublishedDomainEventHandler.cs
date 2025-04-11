@@ -16,8 +16,7 @@ internal sealed class EventPublishedDomainEventHandler(ISender sender, IEventBus
         EventPublishedDomainEvent domainEvent,
         CancellationToken cancellationToken = default)
     {
-        Result<EventResponse> result = await sender
-            .Send(new GetEventQuery(domainEvent.EventId), cancellationToken);
+        Result<EventResponse> result = await sender.Send(new GetEventQuery(domainEvent.EventId), cancellationToken);
 
         if (result.IsFailure)
         {

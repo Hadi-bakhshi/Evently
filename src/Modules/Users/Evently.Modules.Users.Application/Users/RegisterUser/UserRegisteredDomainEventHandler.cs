@@ -35,6 +35,4 @@ internal sealed class UserRegisteredDomainEventHandler(ISender sender, IEventBus
                 result.Value.LastName),
             cancellationToken);
     }
-
-  
 }

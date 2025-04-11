@@ -7,7 +7,6 @@ using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Infrastructure.Serialization;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

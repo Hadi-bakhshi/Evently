@@ -7,7 +7,6 @@ using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Common.Infrastructure.Outbox;
 using Evently.Common.Infrastructure.Serialization;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -24,7 +23,6 @@ internal sealed class ProcessOutboxJob(
     IOptions<OutboxOptions> outboxOptions,
     ILogger<ProcessOutboxJob> logger) : IJob
 {
-
     private const string ModuleName = "Users";
 
     public async Task Execute(IJobExecutionContext context)
@@ -77,8 +75,8 @@ internal sealed class ProcessOutboxJob(
     }
 
     private async Task<IReadOnlyList<OutboxMessageResponse>> GetOutboxMessagesAsync(
-    IDbConnection connection,
-    IDbTransaction transaction)
+        IDbConnection connection,
+        IDbTransaction transaction)
     {
         string sql =
             $"""

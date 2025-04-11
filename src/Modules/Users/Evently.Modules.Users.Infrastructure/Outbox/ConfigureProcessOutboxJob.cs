@@ -2,11 +2,11 @@
 using Quartz;
 
 namespace Evently.Modules.Users.Infrastructure.Outbox;
-internal sealed class ConfigureProcessOutboxJob(IOptions<OutboxOptions> outBoxOptions)
+
+internal sealed class ConfigureProcessOutboxJob(IOptions<OutboxOptions> outboxOptions)
     : IConfigureOptions<QuartzOptions>
 {
-
-    private readonly OutboxOptions _outboxOptions = outBoxOptions.Value;
+    private readonly OutboxOptions _outboxOptions = outboxOptions.Value;
 
     public void Configure(QuartzOptions options)
     {

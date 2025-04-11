@@ -16,8 +16,7 @@ internal sealed class OrderCreatedDomainEventHandler(ISender sender, IEventBus e
         OrderCreatedDomainEvent notification,
         CancellationToken cancellationToken = default)
     {
-        Result<OrderResponse> result = await sender
-            .Send(new GetOrderQuery(notification.OrderId), cancellationToken);
+        Result<OrderResponse> result = await sender.Send(new GetOrderQuery(notification.OrderId), cancellationToken);
 
         if (result.IsFailure)
         {
