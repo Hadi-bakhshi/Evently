@@ -1,7 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Common\Evently.Common.Presentation\Evently.Common.Presentation.csproj"/>
-        <ProjectReference Include="..\Evently.Modules.Events.Application\Evently.Modules.Events.Application.csproj"/>
+      <PackageReference Include="MassTransit" Version="8.4.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Common\Evently.Common.Presentation\Evently.Common.Presentation.csproj" />
+        <ProjectReference Include="..\..\Ticketing\Evently.Modules.Ticketing.IntegrationEvents\Evently.Modules.Ticketing.IntegrationEvents.csproj" />
+        <ProjectReference Include="..\Evently.Modules.Events.Application\Evently.Modules.Events.Application.csproj" />
     </ItemGroup>
 
 </Project>
