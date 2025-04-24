@@ -1,13 +1,8 @@
-﻿using Evently.Common.Infrastructure.Outbox;
-using Evently.Modules.Users.Infrastructure.Database;
-using Evently.Modules.Users.Infrastructure.Identity;
+﻿using Evently.Modules.Users.Infrastructure.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Testcontainers.Keycloak;
 using Testcontainers.PostgreSql;
 using Testcontainers.Redis;
@@ -22,7 +17,6 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         .WithUsername("postgres")
         .WithPassword("postgres")
         .Build();
-
 
     private readonly RedisContainer _redisContainer = new RedisBuilder()
         .WithImage("redis:latest")
@@ -59,9 +53,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
                 o.TokenUrl = $"{keyCloakRealmUrl}/protocol/openid-connect/token";
             });
         });
-
     }
-
 
     public async Task InitializeAsync()
     {
@@ -73,7 +65,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
     public new async Task DisposeAsync()
     {
         await _dbContainer.StopAsync();
-        await _redisContainer.StopAsync();
+        await _dbContainer.StopAsync();
         await _keycloakContainer.StopAsync();
     }
 }

@@ -40,8 +40,8 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <PackageReference Update="SonarAnalyzer.CSharp" Version="10.8.0.113526" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
