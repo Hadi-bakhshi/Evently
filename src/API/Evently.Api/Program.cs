@@ -95,5 +95,7 @@ app.UseAuthorization();
 
 app.MapEndpoints();
 
-#pragma warning disable S6966
 app.Run();
+
+
+public partial class Program;
