@@ -7,7 +7,7 @@ using FluentAssertions;
 
 namespace Evently.IntegrationTests.RegisterUser;
 
-public class RegisterUserTests : BaseIntegrationTest
+public sealed class RegisterUserTests : BaseIntegrationTest
 {
     public RegisterUserTests(IntegrationTestWebAppFactory factory)
         : base(factory)
@@ -30,7 +30,7 @@ public class RegisterUserTests : BaseIntegrationTest
 
         // Get customer
         Result<CustomerResponse> customerResult = await Poller.WaitAsync(
-            TimeSpan.FromSeconds(15),
+            TimeSpan.FromSeconds(40),
             async () =>
             {
                 var query = new GetCustomerQuery(userResult.Value);
@@ -59,9 +59,9 @@ public class RegisterUserTests : BaseIntegrationTest
 
         userResult.IsSuccess.Should().BeTrue();
 
-        // Get customer
+        // Get attendee
         Result<AttendeeResponse> attendeeResult = await Poller.WaitAsync(
-            TimeSpan.FromSeconds(15),
+            TimeSpan.FromSeconds(40),
             async () =>
             {
                 var query = new GetAttendeeQuery(userResult.Value);

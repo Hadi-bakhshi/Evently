@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Evently.Common.Domain;
 
-namespace Evently.Modules.Events.UnitTests.Abstractions;
+namespace Evently.Modules.Users.UnitTests.Abstractions;
 
 public abstract class BaseTest
 {

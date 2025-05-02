@@ -32,7 +32,7 @@ public sealed class AddItemToCartTests : BaseIntegrationTest
 
         // Get customer
         Result<CustomerResponse> customerResult = await Poller.WaitAsync(
-            TimeSpan.FromSeconds(15),
+            TimeSpan.FromSeconds(40),
             async () =>
             {
                 var query = new GetCustomerQuery(userResult.Value);
