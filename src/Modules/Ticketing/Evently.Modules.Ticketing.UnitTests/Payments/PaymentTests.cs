@@ -34,35 +34,4 @@ public class PaymentTests : BaseTest
 
         domainEvent.PaymentId.Should().Be(result.Value.Id);
     }
-
-    //[Fact]
-    //public void Refund_ShouldReturnFailure_WhenAlreadyRefunded()
-    //{
-    //    //Arrange
-    //    decimal amount = Faker.Random.Decimal();
-
-    //    var customer = Customer.Create(
-    //        Guid.NewGuid(),
-    //        Faker.Internet.Email(),
-    //        Faker.Name.FirstName(),
-    //        Faker.Name.LastName());
-
-    //    var order = Order.Create(customer);
-
-    //    Result<Payment> paymentResult = Payment.Create(
-    //        order,
-    //        Guid.NewGuid(),
-    //        amount,
-    //        Faker.Random.String(3));
-
-    //    Payment payment = paymentResult.Value;
-
-    //    payment.Refund(amount);
-
-    //    //Act
-    //    Result result = payment.Refund(amount);
-
-    //    //Assert
-    //    result.Error.Should().Be(PaymentErrors.AlreadyRefunded);
-    //}
 }
