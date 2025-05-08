@@ -3,6 +3,7 @@ using Evently.Api.Middleware;
 using Evently.Api.OpenTelemetry;
 using Evently.Common.Application;
 using Evently.Common.Infrastructure;
+using Evently.Common.Infrastructure.EventBus;
 using Evently.Common.Presentation.Endpoints;
 using Evently.Modules.Attendance.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
@@ -10,6 +11,7 @@ using Evently.Modules.Ticketing.Infrastructure;
 using Evently.Modules.Users.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using RabbitMQ.Client;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -33,6 +35,7 @@ builder.Services.AddApplication([
 
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
 string redisConnectionString = builder.Configuration.GetConnectionString("Cache")!;
+var rabbitMqSettings = new RabbitMqSettings(builder.Configuration.GetConnectionString("Queue")!);
 
 builder.Services.AddInfrastructure(
     DiagnosticsConfig.ServiceName,
@@ -41,6 +44,7 @@ builder.Services.AddInfrastructure(
         TicketingModule.ConfigureConsumers,
         AttendanceModule.ConfigureConsumers
     ],
+    rabbitMqSettings,
     databaseConnectionString,
     redisConnectionString);
 
@@ -48,6 +52,16 @@ builder.Services.AddInfrastructure(
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
     .AddRedis(redisConnectionString)
+    .AddRabbitMQ(factory: _ => 
+    {
+        var factory = new ConnectionFactory
+        {
+            Uri = new Uri(rabbitMqSettings.Host),
+            UserName = "hadi",
+            Password = "hadi@123"
+        };
+        return factory.CreateConnectionAsync().GetAwaiter().GetResult();
+    })
     .AddUrlGroup(
         new Uri(builder.Configuration.GetValue<string>("KeyCloak:HealthUrl")!),
         HttpMethod.Get,
