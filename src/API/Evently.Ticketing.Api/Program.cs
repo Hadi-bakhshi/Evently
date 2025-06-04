@@ -1,13 +1,11 @@
-using Evently.Api.Extensions;
-using Evently.Api.Middleware;
-using Evently.Api.OpenTelemetry;
-using Evently.Common.Application;
-using Evently.Common.Infrastructure;
 using Evently.Common.Infrastructure.EventBus;
+using Evently.Common.Infrastructure;
 using Evently.Common.Presentation.Endpoints;
-using Evently.Modules.Attendance.Infrastructure;
-using Evently.Modules.Events.Infrastructure;
-using Evently.Modules.Users.Infrastructure;
+using Evently.Common.Application;
+using Evently.Modules.Ticketing.Infrastructure;
+using Evently.Ticketing.Api.Extensions;
+using Evently.Ticketing.Api.Middleware;
+using Evently.Ticketing.Api.OpenTelemetry;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using RabbitMQ.Client;
@@ -26,9 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 
 builder.Services.AddApplication([
-    Evently.Modules.Events.Application.AssemblyReference.Assembly,
-    Evently.Modules.Users.Application.AssemblyReference.Assembly,
-    Evently.Modules.Attendance.Application.AssemblyReference.Assembly,
+    Evently.Modules.Ticketing.Application.AssemblyReference.Assembly,
 ]);
 
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
@@ -38,9 +34,7 @@ var rabbitMqSettings = new RabbitMqSettings(builder.Configuration.GetConnectionS
 builder.Services.AddInfrastructure(
     DiagnosticsConfig.ServiceName,
     [
-        EventsModule.ConfigureConsumers(redisConnectionString),
-        AttendanceModule.ConfigureConsumers,
-        UsersModule.ConfigureConsumers
+        TicketingModule.ConfigureConsumers,
     ],
     rabbitMqSettings,
     databaseConnectionString,
@@ -65,22 +59,18 @@ builder.Services.AddHealthChecks()
         HttpMethod.Get,
         "keycloak");
 
-builder.Configuration.AddModuleConfiguration(["events", "users", "attendance"]);
+builder.Configuration.AddModuleConfiguration(["ticketing"]);
 
-builder.Services.AddEventsModule(builder.Configuration);
-
-builder.Services.AddUsersModule(builder.Configuration);
-
-builder.Services.AddAttendanceModule(builder.Configuration);
+builder.Services.AddTicketingModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
-    options.WithTitle("Evently");
-    options.AddServer(new ScalarServer("https://localhost:5001"));
-    options.AddServer(new ScalarServer("http://localhost:5000"));
+    options.WithTitle("Evently.Ticketing.Api");
+    options.AddServer(new ScalarServer("https://localhost:5101"));
+    options.AddServer(new ScalarServer("http://localhost:5100"));
     options.AddServer(new ScalarServer("http://localhost:8080"));
     options.AddServer(new ScalarServer("https://localhost:8081"));
 }); // scalar/v1
@@ -108,6 +98,5 @@ app.UseAuthorization();
 app.MapEndpoints();
 
 app.Run();
-
 
 public partial class Program;

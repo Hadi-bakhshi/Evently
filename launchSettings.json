@@ -8,7 +8,8 @@
         "evently.database": "StartWithoutDebugging",
         "evently.redis": "StartWithoutDebugging",
         "evently.seq": "StartWithoutDebugging",
-        "evently.gateway": "StartDebugging"
+        "evently.gateway": "StartDebugging",
+        "evently.ticketing.api": "StartDebugging"
       }
     }
   }
